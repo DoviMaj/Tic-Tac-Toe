@@ -6,7 +6,7 @@ html{
 
 h1{
   position: absolute;
-  left: 36.4%;
+  left: 38%;
   font-size: 50px;
   margin-bottom: 20px;
 }
@@ -16,8 +16,8 @@ ul{
   box-shadow:  12px 12px 24px #8c8e7e, 
              -12px -12px 24px #caccb6;  
   position: absolute;
-  top: 135px;
-  left: 35%;
+  top: 150px;
+  left: 37%;
   display: flex;
   text-align: center;
   flex-wrap: wrap;
@@ -47,26 +47,27 @@ li:hover{
 
 #right-stats{
   position: absolute;
-  left: 211px;
-  top: 122px;
+  left: 241px;
+  top: 134px;
 }
 
 span{
   padding: 20px;
   position: absolute;
   right: 254px;
-  top: 136px;
+  width: 165px;
+  text-align: center;
+  top: 150px;
   border-radius: 4px;
   background: linear-gradient(145deg, #c6c9a2, #a7a988);
-  box-shadow:  20px 20px 39px #9da080, 
-               -20px -20px 39px #d5d8ae;
+  box-shadow: 20px 20px 39px #9da080, -20px -20px 39px #d5d8ae;
 }
 
 p{
   background: linear-gradient(145deg, #fdf4e7, #d4cdc2);
   box-shadow: 12px 12px 24px #c2bbb1, 4px 0px 24px #ffffff;  color: black;
   width: 130px;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
   cursor: pointer;
   border-radius: 10px;
