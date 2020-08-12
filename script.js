@@ -1,9 +1,8 @@
 const GameBoard = (() => {
   let gameboard = ['', '', '', '', '', '', '', '', '']
   let ul = document.querySelector('ul')
-  // DOM render
+
   const render = () => {
-    // gameboard rendering
     gameboard.forEach((i, index) => {
       let li = document.createElement('li')
       li.innerHTML = i
@@ -19,7 +18,6 @@ const GameBoard = (() => {
     })
   }
 
-  // when button clicked shold start game
   const gameOptions = () => {
     playerGame()
     computerGame()
@@ -28,11 +26,7 @@ const GameBoard = (() => {
   computerGame = () => {
     let vsComputer = document.getElementById('vs-computer')
     vsComputer.addEventListener('click', () => {
-      
-      game.newRound()
-      ul.childNodes.forEach( i => {
-        i.addEventListener('click', game.pcGameFlow)
-      })
+      gameEventListeners(game.pcGameFlow)
       game.pcGameFlow()
     })
   }
@@ -40,17 +34,18 @@ const GameBoard = (() => {
   playerGame = () => {
     let vsPlayer = document.getElementById('vs-player')
     vsPlayer.addEventListener('click', () => {
-      game.newRound()
-      ul.childNodes.forEach( i => {
-        i.addEventListener('click', game.gameFlow)
-      })
+      gameEventListeners(game.gameFlow)
     })
   }
 
   startPlayerGame = () => {
+    gameEventListeners(game.gameFlow)
+  }
+
+  gameEventListeners = (choice) => {
     game.newRound()
       ul.childNodes.forEach( i => {
-        i.addEventListener('click', game.gameFlow)
+        i.addEventListener('click', choice)
       })
   }
 
@@ -83,7 +78,6 @@ const GameBoard = (() => {
 
 const PlayerData = (() => {
   const Player = (name, marker = 'x', points = 0) => ({
-    // create player obj
     name,
     points,
     marker
@@ -103,7 +97,6 @@ const PlayerData = (() => {
 
 
 const game = (() => {
-  // Game flow logic
   gameFlow = (evt) => {
     removePcAsPlayer()
     removeClickEvent(evt, 'player-player')
@@ -117,7 +110,8 @@ const game = (() => {
   pcGameFlow = (evt) => {
     defineComputerAsPlayer()
     definePlayersNames()
-    if(evt != undefined && pcStarting === false){
+    let noUserChoice = evt === undefined;
+    if(!noUserChoice && !pcStarting){
       handlePlayerChoice(evt.target)
       removeClickEvent(evt, 'player-pc')
       if(!checkForWinnerAndTie()){
@@ -129,8 +123,8 @@ const game = (() => {
         removeClickEvent('pc')  
       }
     }
-    else if(pcStarting === true){
-      if(evt === undefined){
+    else if(pcStarting){
+      if(noUserChoice){
         handleComputerChoice()
         checkForWinnerAndTie()
         removeClickEvent('pc')
@@ -217,8 +211,6 @@ const game = (() => {
     doIt()
   }
     
-
-  //  define current player
   const definePlayersNames = () => {
     if(PlayerData.player1.name != '' && PlayerData.player2.name != ''){
       defineCurrentPlayer()
@@ -244,7 +236,6 @@ const game = (() => {
     }
   }
 
-  //  handle choice
   const handlePlayerChoice = (i) => {
     if(i.innerHTML === ''){
       i.innerHTML = PlayerData.currentPlayer.marker
@@ -252,12 +243,10 @@ const game = (() => {
     }
   }
 
-  // change player
   const changeCurrentPlayer = () => {
     PlayerData.current = !PlayerData.current
   }
 
-  // checks if there is a winner
   const checkForWinner = () => {
     const g = GameBoard.getGameBoard()
     const JS = JSON.stringify;
@@ -299,10 +288,6 @@ const game = (() => {
     if(arr.length === 9){
       return true
     }
-  }
-
-  drawLine = () => {
-
   }
 
   congratulateWinner = (v) => {
@@ -365,21 +350,3 @@ const game = (() => {
 GameBoard.render()
 GameBoard.gameOptions()
 GameBoard.startPlayerGame()
-
-
-// single task per function
-// player factory constructor
-// gameflow object
-// render dom function based on gameboard array
-// allow user to mark specific index
-// check for winner
-// add players to DOM and points
-// remove click event on current item after clicked
-// game , player, gameboard obj sould be defined
-// check for tie
-// allow player to input names
-// add restart game button
-
-// game against pc 
-// add against pc button
-// pc does random moves
